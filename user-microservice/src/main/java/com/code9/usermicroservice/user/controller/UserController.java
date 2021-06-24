@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping
 public class UserController {
 
     private IUserService userService;
@@ -19,7 +19,7 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity getAll(){
+    public ResponseEntity getAll() {
         return new ResponseEntity(userService.getAll(), HttpStatus.OK);
     }
 
@@ -32,7 +32,6 @@ public class UserController {
     @PutMapping("/{email}")
     public ResponseEntity updateTennisPlayer(@RequestBody UserDto userDto, @PathVariable String email) {
         userService.checkAdmin(email);
-
         return new ResponseEntity(
                 userService.updateTennisPlayer(UserMapper.mapUserDtoToUser(userDto)), HttpStatus.OK);
     }

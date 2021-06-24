@@ -17,7 +17,7 @@ public class RoleService implements IRoleService {
 
     public Role findByName(String name) {
         Role role = roleRepository.findByName(name);
-        if(role == null)
+        if (role == null)
             throw new NotFoundException("There is no role with name: " + name);
         return role;
     }

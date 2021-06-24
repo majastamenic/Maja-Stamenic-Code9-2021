@@ -16,5 +16,7 @@ public interface IUserService {
 
     void checkAdmin(String email);
 
+    void checkTennisPlayer(String email);
+
     void deleteTennisPlayer(Long id);
 }
