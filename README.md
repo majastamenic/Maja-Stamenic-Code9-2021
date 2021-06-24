@@ -5,6 +5,14 @@
 
 [Tennis scheduler - Trello](https://trello.com/b/2WjCcrGP/code9-2021)
 
+### Microservices:
+| Name | Port | About
+| ------ | ------ | ------ |
+| User-microservice | 9090 | Admin and tennis player |
+| Tennis-court-microservice | 9099 | Tennis court reservation |
+| Pay-microservice | 9990 | Payment |
+| Notification-microservice | 9999 | Email service |
+
  ## Technologies:
  
 
