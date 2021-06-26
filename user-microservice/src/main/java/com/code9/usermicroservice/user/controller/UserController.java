@@ -42,4 +42,10 @@ public class UserController {
         userService.deleteTennisPlayer(id);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @GetMapping("/isAdmin/{email}")
+    public ResponseEntity checkIsAdmin(@PathVariable String email){
+        userService.checkAdmin(email);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }
