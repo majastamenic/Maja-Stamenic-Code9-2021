@@ -5,6 +5,7 @@ import com.code9.tenniscourtmicroservice.tennis_court.domain.TennisCourt;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity
@@ -20,8 +21,7 @@ public class Reservation {
     @ManyToOne
     @JoinColumn(name="tennis_court_id")
     private TennisCourt tennisCourt;
-    @ManyToOne
-    @JoinColumn(name="timeslot_id")
-    private Timeslot timeslot;
+    @OneToMany
+    private Set<Timeslot> timeslots;
 
 }

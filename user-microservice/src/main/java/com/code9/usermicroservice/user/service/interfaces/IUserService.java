@@ -1,5 +1,6 @@
 package com.code9.usermicroservice.user.service.interfaces;
 
+import com.code9.usermicroservice.user.controller.dto.LoginDto;
 import com.code9.usermicroservice.user.domain.User;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +19,9 @@ public interface IUserService {
 
     void checkTennisPlayer(String email);
 
-    void deleteTennisPlayer(Long id);
+    User deleteTennisPlayer(Long id);
+
+    User findByUsername(String username);
+
+    String login(String username, String password);
 }

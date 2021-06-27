@@ -1,25 +1,32 @@
 package com.code9.usermicroservice.user.domain;
 
+import com.code9.usermicroservice.user.validation.DateOfBirth;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import javax.validation.constraints.Email;
+import java.util.*;
 
 @Data
 @Entity
 @Table(name = "app_user")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Email
     @Column(unique = true)
     private String email;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
+    @DateOfBirth
     @Column(name = "date_of_birth")
     private Date dateOfBirth;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -29,8 +36,41 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<Role> roles;
+    @Column(name = "deleted")
+    private Boolean deleted;
+    @Column
+    private String username;
+    @Column
+    private String password;
 
-    public void addRole(Role role) {
-        this.roles.add(role);
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set permissions = new HashSet();
+        for (Role role : roles)
+            permissions.add(new SimpleGrantedAuthority(role.getName()));
+        return permissions;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

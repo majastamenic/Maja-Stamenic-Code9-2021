@@ -6,12 +6,15 @@ import com.code9.usermicroservice.user.exception.BadRequestException;
 import com.code9.usermicroservice.user.exception.NotFoundException;
 import com.code9.usermicroservice.user.exception.UnauthorizedException;
 import com.code9.usermicroservice.user.repository.IUserRepository;
+import com.code9.usermicroservice.user.security.JwtService;
 import com.code9.usermicroservice.user.service.interfaces.IRoleService;
 import com.code9.usermicroservice.user.service.interfaces.IUserService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements IUserService {
@@ -19,19 +22,24 @@ public class UserService implements IUserService {
     private IUserRepository userRepository;
     private IRoleService roleService;
 
+    private PasswordEncoder passwordEncoder;
+    private JwtService jwtService;
+
     private static String admin = "ADMIN";
     private static String tennisPlayer = "TENNIS_PLAYER";
 
-    public UserService(IUserRepository userRepository, RoleService roleService) {
+    public UserService(IUserRepository userRepository, RoleService roleService, PasswordEncoder passwordEncoder, JwtService jwtService) {
         this.userRepository = userRepository;
         this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
     }
 
     public List<User> getAll() {
         List<User> users = userRepository.findAll();
         if (users.isEmpty())
             throw new NotFoundException("There is no any user.");
-        return users;
+        return users.stream().filter(user -> !(Boolean.TRUE.equals(user.getDeleted()))).collect(Collectors.toList());
     }
 
     public User createTennisPlayer(User user) {
@@ -64,10 +72,26 @@ public class UserService implements IUserService {
             throw new BadRequestException("User with email: " + email + " is not tennis player.");
     }
 
-    public void deleteTennisPlayer(Long id) {
+    public User deleteTennisPlayer(Long id) {
         User user = userRepository.findUserById(id);
         checkTennisPlayer(user.getEmail());
-        userRepository.delete(user);
+        user.setDeleted(true);
+        return userRepository.save(user);
+    }
+
+    public User findByUsername(String username) {
+        User user = userRepository.findUserByUsername(username);
+        if(user == null)
+            throw new NotFoundException("There is no user with username: " + username);
+        return user;
+    }
+
+    @Override
+    public String login(String username, String password) {
+        User user = userRepository.findUserByUsername(username);
+        if(user == null || !passwordEncoder.matches(password, user.getPassword()))
+            throw new BadRequestException("Bad login data");
+        return jwtService.createToken(user.getUsername(), user.getRoles().get(0));
     }
 
     private User findUserByEmail(String email) {

@@ -8,6 +8,8 @@ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
     <include file="createTableRoles.xml" relativeToChangelogFile="true"/>
     <include file="createTableUsersRoles.xml" relativeToChangelogFile="true"/>
 
+    <include file="updateTableUser.xml" relativeToChangelogFile="true"/>
+
     <include file="insertRoles.xml" relativeToChangelogFile="true"/>
     <include file="insertAdmin.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
