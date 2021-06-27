@@ -1,12 +1,12 @@
 package com.code9.usermicroservice.user.service;
 
+import com.code9.usermicroservice.exception.BadRequestException;
+import com.code9.usermicroservice.exception.NotFoundException;
+import com.code9.usermicroservice.exception.UnauthorizedException;
+import com.code9.usermicroservice.security.JwtService;
 import com.code9.usermicroservice.user.domain.Role;
 import com.code9.usermicroservice.user.domain.User;
-import com.code9.usermicroservice.user.exception.BadRequestException;
-import com.code9.usermicroservice.user.exception.NotFoundException;
-import com.code9.usermicroservice.user.exception.UnauthorizedException;
 import com.code9.usermicroservice.user.repository.IUserRepository;
-import com.code9.usermicroservice.user.security.JwtService;
 import com.code9.usermicroservice.user.service.interfaces.IRoleService;
 import com.code9.usermicroservice.user.service.interfaces.IUserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -91,7 +91,7 @@ public class UserService implements IUserService {
         User user = userRepository.findUserByUsername(username);
         if(user == null || !passwordEncoder.matches(password, user.getPassword()))
             throw new BadRequestException("Bad login data");
-        return jwtService.createToken(user.getUsername(), user.getRoles().get(0));
+        return jwtService.createToken(user.getUsername());
     }
 
     private User findUserByEmail(String email) {

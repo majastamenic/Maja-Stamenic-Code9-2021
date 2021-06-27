@@ -6,5 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface IPayService {
 
-    String payReservation(Long reservationId, CreditCard creditCard);
+    String payCreditCard(Long reservationId, CreditCard creditCard);
+
+    String payCash(Long id);
 }

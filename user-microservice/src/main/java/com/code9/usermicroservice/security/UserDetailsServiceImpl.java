@@ -1,4 +1,4 @@
-package com.code9.usermicroservice.user.security;
+package com.code9.usermicroservice.security;
 
 import com.code9.usermicroservice.user.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;

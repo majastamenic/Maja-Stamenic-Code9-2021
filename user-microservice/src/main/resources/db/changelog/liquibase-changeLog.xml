@@ -12,4 +12,5 @@ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 
     <include file="insertRoles.xml" relativeToChangelogFile="true"/>
     <include file="insertAdmin.xml" relativeToChangelogFile="true"/>
+    <include file="insertAdmins.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

@@ -17,8 +17,13 @@ public class PayController {
         this.payService = payService;
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity payReservation(@PathVariable Long id, @RequestBody CreditCard creditCard) {
-        return new ResponseEntity(payService.payReservation(id, creditCard), HttpStatus.OK);
+    @PostMapping("/credit_card/{id}")
+    public ResponseEntity payCreditCard(@PathVariable Long id, @RequestBody CreditCard creditCard) {
+        return new ResponseEntity(payService.payCreditCard(id, creditCard), HttpStatus.OK);
+    }
+
+    @PostMapping("/cash/{id}")
+    public ResponseEntity payCash(@PathVariable Long id){
+        return new ResponseEntity(payService.payCash(id), HttpStatus.OK);
     }
 }

@@ -1,7 +1,7 @@
 package com.code9.usermicroservice.user.service;
 
 import com.code9.usermicroservice.user.domain.Role;
-import com.code9.usermicroservice.user.exception.NotFoundException;
+import com.code9.usermicroservice.exception.NotFoundException;
 import com.code9.usermicroservice.user.repository.IRoleRepository;
 import com.code9.usermicroservice.user.service.interfaces.IRoleService;
 import org.springframework.stereotype.Service;

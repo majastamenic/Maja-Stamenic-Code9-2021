@@ -1,6 +1,6 @@
 package com.code9.paymicroservice.pay.domain;
 
-import com.code9.paymicroservice.validation.ValidDate;
+import com.code9.paymicroservice.pay.validation.ValidDate;
 import lombok.Data;
 
 @Data

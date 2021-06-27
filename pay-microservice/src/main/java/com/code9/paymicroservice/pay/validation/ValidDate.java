@@ -1,4 +1,4 @@
-package com.code9.paymicroservice.validation;
+package com.code9.paymicroservice.pay.validation;
 
 import java.lang.annotation.*;
 import javax.validation.Constraint;

@@ -1,4 +1,4 @@
-package com.code9.usermicroservice.user.security;
+package com.code9.usermicroservice.security;
 
 import com.code9.usermicroservice.user.domain.Role;
 import io.jsonwebtoken.Claims;
@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.function.Function;
 
@@ -26,9 +28,11 @@ public class JwtService {
     @Value("Authorization")
     private String AUTH_HEADER;
 
+    private SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
+
     public String getToken(HttpServletRequest request) {
         String authorizationHeader = request.getHeader(AUTH_HEADER);
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer "))
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ") )
             return authorizationHeader.substring(7);
         return null;
     }
@@ -39,17 +43,8 @@ public class JwtService {
                 .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_PERIOD))
-                .signWith(SignatureAlgorithm.HS256, KEY).compact();
-    }
-
-    public String createToken(String username, Role role) {
-        return Jwts.builder()
-                .setIssuer(APP_NAME)
-                .setSubject(username)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_PERIOD))
-                .claim("role", role.getName())
-                .signWith(SignatureAlgorithm.HS256, KEY).compact();
+                .signWith(SIGNATURE_ALGORITHM, KEY.getBytes())
+                .compact();
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {

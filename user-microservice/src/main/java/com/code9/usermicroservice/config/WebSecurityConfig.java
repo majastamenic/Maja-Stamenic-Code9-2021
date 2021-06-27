@@ -1,8 +1,8 @@
-package com.code9.usermicroservice.user.config;
+package com.code9.usermicroservice.config;
 
-import com.code9.usermicroservice.user.security.RequestFilter;
-import com.code9.usermicroservice.user.security.RestAuthenticationEntryPoint;
-import com.code9.usermicroservice.user.security.UserDetailsServiceImpl;
+import com.code9.usermicroservice.security.RequestFilter;
+import com.code9.usermicroservice.security.RestAuthenticationEntryPoint;
+import com.code9.usermicroservice.security.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -76,8 +76,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         // Ignores security configurations for Quoted mappings
         web.ignoring().antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "/favicon.ico", "/**/*.html",
-                "/**/*.css", "/**/*.js");
+                "/**/*.css", "/**/*.js", "/");
         web.ignoring().antMatchers(HttpMethod.POST,
-                "/login");
+                "/login", "/");
     }
 }

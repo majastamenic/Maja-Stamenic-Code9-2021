@@ -1,4 +1,4 @@
-package com.code9.usermicroservice.user.security;
+package com.code9.usermicroservice.security;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;

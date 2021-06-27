@@ -1,7 +1,10 @@
 package com.code9.tenniscourtmicroservice.reservation.service;
 
-import com.code9.tenniscourtmicroservice.communication.IUserCommunication;
 import com.code9.tenniscourtmicroservice.exception.NotFoundException;
+import com.code9.tenniscourtmicroservice.rabbitMQ.MessageFactory;
+import com.code9.tenniscourtmicroservice.rabbitMQ.MessageService;
+import com.code9.tenniscourtmicroservice.rabbitMQ.NewReservationMessage;
+import com.code9.tenniscourtmicroservice.reservation.controller.dto.UserDto;
 import com.code9.tenniscourtmicroservice.reservation.domain.Reservation;
 import com.code9.tenniscourtmicroservice.reservation.repository.IReservationRepository;
 import com.code9.tenniscourtmicroservice.reservation.service.interfaces.IReservationService;
@@ -9,6 +12,7 @@ import com.code9.tenniscourtmicroservice.tennis_court.service.interfaces.ITennis
 import com.code9.tenniscourtmicroservice.timeslot.service.TimeslotService;
 import com.code9.tenniscourtmicroservice.timeslot.service.interfaces.ITimeslotService;
 import com.code9.tenniscourtmicroservice.validation.TimeslotValidation;
+import com.code9.usermicroservice.user.client.UserClient;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,31 +20,37 @@ import java.util.List;
 @Service
 public class ReservationService implements IReservationService {
 
-    private IReservationRepository reservationRepository;
-    private ITimeslotService timeslotService;
-    private ITennisCourtService tennisCourtService;
-    private IUserCommunication userCommunication;
+    private final IReservationRepository reservationRepository;
+    private final ITimeslotService timeslotService;
+    private final ITennisCourtService tennisCourtService;
+    private final MessageService messageService;
+
+    private UserClient userClient;
 
     public ReservationService(IReservationRepository reservationRepository, TimeslotService timeslotService,
-                              ITennisCourtService tennisCourtService, IUserCommunication userCommunication) {
+                              ITennisCourtService tennisCourtService, UserClient userClient,
+                              MessageService messageService) {
         this.reservationRepository = reservationRepository;
         this.timeslotService = timeslotService;
         this.tennisCourtService = tennisCourtService;
-        this.userCommunication = userCommunication;
+        this.userClient = userClient;
+        this.messageService = messageService;
     }
 
     @Override
     public Reservation create(Reservation reservation) {
 
-        userCommunication.getUser(reservation.getFirstUserId());
-        userCommunication.getUser(reservation.getSecondUserId());
+        userClient.getUser(reservation.getFirstUserId());
+        userClient.getUser(reservation.getSecondUserId());
 
         checkTimeslots(reservation);
         reservation.setTennisCourt(tennisCourtService.findByName(reservation.getTennisCourt().getName()));
         reservation.getTimeslots().forEach(timeslot -> timeslotService.create(timeslot));
 
-        if(reservation.getTimeslots().size() > 5)
+        if (reservation.getTimeslots().size() > 5)
             reservation.setPaid(Boolean.FALSE);
+        else
+            publishMessage(reservation);
 
         return reservationRepository.save(reservation);
     }
@@ -67,6 +77,7 @@ public class ReservationService implements IReservationService {
     public Reservation paid(Long id) {
         Reservation reservation = findById(id);
         reservation.setPaid(Boolean.TRUE);
+        publishMessage(reservation);
         return reservationRepository.save(reservation);
     }
 
@@ -98,6 +109,13 @@ public class ReservationService implements IReservationService {
             reservationsCourt.stream().forEach(
                     res -> TimeslotValidation.checkIfTennisCourtAlreadyHaveTimeslot(reservation.getTimeslots(), res.getTimeslots()));
 
+    }
+
+    private void publishMessage(Reservation reservation) {
+        UserDto firstUser = (UserDto) userClient.getUser(reservation.getFirstUserId()).getBody();
+        UserDto secondUser = (UserDto) userClient.getUser(reservation.getSecondUserId()).getBody();
+        NewReservationMessage newReservationMessage = MessageFactory.createNewReservationMessage(reservation, firstUser.getEmail(), secondUser.getEmail());
+        messageService.sendMessageToNewReservationTopic(newReservationMessage);
     }
 
 }

@@ -1,5 +1,6 @@
-package com.code9.usermicroservice.user.security;
+package com.code9.usermicroservice.security;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,12 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
+@AllArgsConstructor
 public class RequestFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private JwtService jwtService;
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private final JwtService jwtService;
+    private final UserDetailsServiceImpl userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

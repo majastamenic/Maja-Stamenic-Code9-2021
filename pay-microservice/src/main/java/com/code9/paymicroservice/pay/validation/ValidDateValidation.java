@@ -1,6 +1,4 @@
-package com.code9.paymicroservice.validation;
-
-import liquibase.pro.packaged.C;
+package com.code9.paymicroservice.pay.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
