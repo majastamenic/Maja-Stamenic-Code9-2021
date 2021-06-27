@@ -20,6 +20,7 @@ public class TennisCourtService implements ITennisCourtService {
     @Override
     public List<TennisCourt> getAll() {
         List<TennisCourt> tennisCourts = tennisCourtRepository.findAll();
+        tennisCourts.stream().filter(tennisCourt -> tennisCourt.getDeleted()!=Boolean.TRUE);
         if(tennisCourts.isEmpty())
             throw new NotFoundException("There is no any tennis court");
         return tennisCourts;
@@ -38,15 +39,25 @@ public class TennisCourtService implements ITennisCourtService {
     }
 
     @Override
-    public void delete(Long id) {
+    public TennisCourt delete(Long id) {
         TennisCourt tennisCourt = findById(id);
-        tennisCourtRepository.delete(tennisCourt);
+        tennisCourt.setDeleted(Boolean.TRUE);
+        return tennisCourtRepository.save(tennisCourt);
     }
 
-    private TennisCourt findById(Long id){
+    @Override
+    public TennisCourt findById(Long id){
         TennisCourt tennisCourt = tennisCourtRepository.findTennisCourtById(id);
         if(tennisCourt == null)
             throw new NotFoundException("There is no tennis court with id: " + id);
+        return tennisCourt;
+    }
+
+    @Override
+    public TennisCourt findByName(String name) {
+        TennisCourt tennisCourt = tennisCourtRepository.findTennisCourtByName(name);
+        if(tennisCourt == null)
+            throw new NotFoundException("There is no tennis court with name: " + name);
         return tennisCourt;
     }
 

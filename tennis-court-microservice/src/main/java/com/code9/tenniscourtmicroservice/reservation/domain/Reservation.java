@@ -23,5 +23,9 @@ public class Reservation {
     private TennisCourt tennisCourt;
     @OneToMany
     private Set<Timeslot> timeslots;
+    @Column
+    private Boolean deleted;
+    @Column
+    private Boolean paid;
 
 }

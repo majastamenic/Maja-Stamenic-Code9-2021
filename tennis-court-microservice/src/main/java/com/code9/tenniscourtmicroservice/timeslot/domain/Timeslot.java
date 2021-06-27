@@ -17,4 +17,6 @@ public class Timeslot implements Serializable {
     private Date startTime;
     @Column(name = "end_time")
     private Date endTime;
+    @Column
+    private Boolean deleted;
 }

@@ -14,5 +14,9 @@ public interface ITennisCourtService {
 
     TennisCourt update(TennisCourt tennisCourt);
 
-    void delete(Long id);
+    TennisCourt delete(Long id);
+
+    TennisCourt findById(Long id);
+
+    TennisCourt findByName(String name);
 }
