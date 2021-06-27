@@ -1,8 +1,8 @@
 package com.code9.tenniscourtmicroservice.timeslot.controller;
 
 import com.code9.tenniscourtmicroservice.timeslot.domain.Timeslot;
+import com.code9.tenniscourtmicroservice.timeslot.service.impl.TimeslotServiceImpl;
 import com.code9.tenniscourtmicroservice.timeslot.service.TimeslotService;
-import com.code9.tenniscourtmicroservice.timeslot.service.interfaces.ITimeslotService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "Timeslot endpoints")
 public class TimeslotController {
 
-    private ITimeslotService timeslotService;
+    private TimeslotService timeslotService;
 
-    public TimeslotController(TimeslotService timeslotService){
+    public TimeslotController(TimeslotServiceImpl timeslotService){
         this.timeslotService = timeslotService;
     }
 

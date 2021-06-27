@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ITennisCourtRepository extends JpaRepository<TennisCourt, Long> {
+public interface TennisCourtRepository extends JpaRepository<TennisCourt, Long> {
     @Query(value = "select t from TennisCourt t where (t.deleted is null or t.deleted=false) and t.id=(:id)")
     TennisCourt findTennisCourtById(@Param("id") Long id);
     @Query(value = "select t from TennisCourt t where (t.deleted is null or t.deleted=false) and t.name=(:name)")

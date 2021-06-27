@@ -6,6 +6,7 @@ import com.code9.usermicroservice.user.domain.User;
 public class UserMapper {
 
     public static User mapUserDtoToUser(UserDto userDto) {
+
         User user = new User();
         user.setEmail(userDto.getEmail());
         user.setFirstName(userDto.getFirstName());

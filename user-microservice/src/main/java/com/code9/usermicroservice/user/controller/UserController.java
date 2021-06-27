@@ -4,26 +4,22 @@ import com.code9.usermicroservice.user.controller.dto.UserDto;
 import com.code9.usermicroservice.user.controller.mapping.UserMapper;
 import com.code9.usermicroservice.user.domain.User;
 import com.code9.usermicroservice.user.service.UserService;
-import com.code9.usermicroservice.user.service.interfaces.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@AllArgsConstructor
 @Api(value = "User endpoints")
 public class UserController {
 
-    private IUserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    private final UserService userService;
 
     @GetMapping
     @ApiOperation(value = "Get all tennis players", notes = "", response = ResponseEntity.class)

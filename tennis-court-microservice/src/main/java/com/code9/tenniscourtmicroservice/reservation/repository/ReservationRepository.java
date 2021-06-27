@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface IReservationRepository extends JpaRepository<Reservation, Long> {
+public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
     @Query(value = "select r from Reservation r where (r.firstUserId=(:id) or r.secondUserId=(:id)) " +
             "and (r.deleted is null or r.deleted=false) and (r.paid=true or r.paid is null)")
