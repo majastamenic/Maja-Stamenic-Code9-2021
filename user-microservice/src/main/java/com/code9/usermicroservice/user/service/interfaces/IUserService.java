@@ -23,5 +23,5 @@ public interface IUserService {
 
     User findByUsername(String username);
 
-    String login(String username, String password);
+//    String login(String username, String password);
 }

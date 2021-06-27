@@ -6,12 +6,15 @@ import com.code9.tenniscourtmicroservice.reservation.controller.mapping.Reservat
 import com.code9.tenniscourtmicroservice.reservation.domain.Reservation;
 import com.code9.tenniscourtmicroservice.reservation.service.ReservationService;
 import com.code9.tenniscourtmicroservice.reservation.service.interfaces.IReservationService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/reservation")
+@RequestMapping("/api/reservation")
+@Api(value = "Reservation endpoints")
 public class ReservationController {
 
     private IReservationService reservationService;
@@ -21,11 +24,13 @@ public class ReservationController {
     }
 
     @GetMapping("/{id}")
+    @ApiOperation(value = "Get reservation by id.", notes = "", response = Reservation.class)
     public ResponseEntity getById(@PathVariable Long id){
         return new ResponseEntity(reservationService.findById(id), HttpStatus.OK);
     }
 
     @PostMapping
+    @ApiOperation(value = "Create reservation.", notes = "", response = Reservation.class)
     public ResponseEntity create(@RequestBody ReservationDto reservationDto){
         Reservation reservation = reservationService.create(
                 ReservationMapper.mapReservationDtoToReservation(reservationDto));
@@ -37,17 +42,20 @@ public class ReservationController {
     }
 
     @PutMapping
+    @ApiOperation(value = "Update reservation.", notes = "", response = Reservation.class)
     public ResponseEntity update(@RequestBody ReservationDto reservationDto){
         return new ResponseEntity(
                 reservationService.update(ReservationMapper.mapReservationDtoToReservation(reservationDto)), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
+    @ApiOperation(value = "Delete reservation by id.", notes = "", response = Reservation.class)
     public ResponseEntity delete(@PathVariable Long id){
         return new ResponseEntity(reservationService.delete(id), HttpStatus.OK);
     }
 
     @PutMapping("/paid/{id}")
+    @ApiOperation(value = "Pay reservation", notes = "", response = Reservation.class)
     public ResponseEntity paid(@PathVariable Long id){
         return new ResponseEntity(reservationService.paid(id), HttpStatus.OK);
     }

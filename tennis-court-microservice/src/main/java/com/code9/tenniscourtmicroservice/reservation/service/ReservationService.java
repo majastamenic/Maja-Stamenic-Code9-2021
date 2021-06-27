@@ -12,7 +12,7 @@ import com.code9.tenniscourtmicroservice.tennis_court.service.interfaces.ITennis
 import com.code9.tenniscourtmicroservice.timeslot.service.TimeslotService;
 import com.code9.tenniscourtmicroservice.timeslot.service.interfaces.ITimeslotService;
 import com.code9.tenniscourtmicroservice.validation.TimeslotValidation;
-import com.code9.usermicroservice.user.client.UserClient;
+import com.code9.usermicroservice.client.UserClient;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

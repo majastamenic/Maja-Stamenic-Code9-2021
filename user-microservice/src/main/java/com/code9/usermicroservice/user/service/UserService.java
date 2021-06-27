@@ -3,12 +3,12 @@ package com.code9.usermicroservice.user.service;
 import com.code9.usermicroservice.exception.BadRequestException;
 import com.code9.usermicroservice.exception.NotFoundException;
 import com.code9.usermicroservice.exception.UnauthorizedException;
-import com.code9.usermicroservice.security.JwtService;
 import com.code9.usermicroservice.user.domain.Role;
 import com.code9.usermicroservice.user.domain.User;
 import com.code9.usermicroservice.user.repository.IUserRepository;
 import com.code9.usermicroservice.user.service.interfaces.IRoleService;
 import com.code9.usermicroservice.user.service.interfaces.IUserService;
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,24 +16,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
 @Service
 public class UserService implements IUserService {
 
-    private IUserRepository userRepository;
-    private IRoleService roleService;
+    private final IUserRepository userRepository;
+    private final IRoleService roleService;
 
-    private PasswordEncoder passwordEncoder;
-    private JwtService jwtService;
+    //private PasswordEncoder passwordEncoder;
+    //private JwtService jwtService;
 
     private static String admin = "ADMIN";
     private static String tennisPlayer = "TENNIS_PLAYER";
 
-    public UserService(IUserRepository userRepository, RoleService roleService, PasswordEncoder passwordEncoder, JwtService jwtService) {
-        this.userRepository = userRepository;
-        this.roleService = roleService;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtService = jwtService;
-    }
 
     public List<User> getAll() {
         List<User> users = userRepository.findAll();
@@ -86,13 +81,13 @@ public class UserService implements IUserService {
         return user;
     }
 
-    @Override
-    public String login(String username, String password) {
-        User user = userRepository.findUserByUsername(username);
-        if(user == null || !passwordEncoder.matches(password, user.getPassword()))
-            throw new BadRequestException("Bad login data");
-        return jwtService.createToken(user.getUsername());
-    }
+//    @Override
+//    public String login(String username, String password) {
+//        User user = userRepository.findUserByUsername(username);
+//        if(user == null || !passwordEncoder.matches(password, user.getPassword()))
+//            throw new BadRequestException("Bad login data");
+//        return jwtService.createToken(user.getUsername());
+//    }
 
     private User findUserByEmail(String email) {
         User user = userRepository.findUserByEmail(email);
