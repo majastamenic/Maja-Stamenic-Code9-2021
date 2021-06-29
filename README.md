@@ -5,13 +5,18 @@
 
 [Tennis scheduler - Trello](https://trello.com/b/2WjCcrGP/code9-2021)
 
+##Database:
+
+Username: root
+Password: root
+
 ### Microservices:
-| Name | Port | About
+| Name | Port | About | Swagger
 | ------ | ------ | ------ |
-| User-microservice | 9090 | Admin and tennis player |
-| Tennis-court-microservice | 9099 | Tennis court reservation |
-| Pay-microservice | 9990 | Payment |
-| Notification-microservice | 9999 | Email service |
+| User-microservice | 9090 | Admin and tennis player | http://localhost:9090/swagger-ui.html
+| Tennis-court-microservice | 9099 | Tennis court reservation | http://localhost:9099/swagger-ui.html
+| Pay-microservice | 9990 | Payment | http://localhost:9990/swagger-ui.html
+| Notification-microservice | 9999 | Email service | http://localhost:9999/swagger-ui.html
 
  ## Technologies:
  
