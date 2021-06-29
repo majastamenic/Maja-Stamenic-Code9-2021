@@ -35,6 +35,7 @@ public class ReservationServiceImpl implements ReservationService {
 
         checkTimeslots(reservation);
         reservation.setTennisCourt(tennisCourtService.findByName(reservation.getTennisCourt().getName()));
+        reservation.getTimeslots().forEach(timeslot -> timeslotService.create(timeslot));
         reservation.getTimeslots().stream().map(timeslot -> timeslotService.create(timeslot));
 
         if (reservation.getTimeslots().size() > 5)

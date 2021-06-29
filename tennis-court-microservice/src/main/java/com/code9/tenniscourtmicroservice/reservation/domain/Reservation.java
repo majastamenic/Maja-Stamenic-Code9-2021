@@ -18,10 +18,15 @@ public class Reservation {
     private Long firstUserId;
     @Column(name = "second_user_id")
     private Long secondUserId;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="tennis_court_id")
     private TennisCourt tennisCourt;
     @OneToMany
+    @JoinTable(
+            name = "reservation_timeslots",
+            joinColumns = @JoinColumn(name = "reservation_id"),
+            inverseJoinColumns = @JoinColumn(name = "timeslot_id")
+    )
     private Set<Timeslot> timeslots;
     @Column
     private Boolean deleted;
