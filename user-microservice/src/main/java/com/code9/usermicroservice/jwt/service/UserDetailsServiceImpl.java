@@ -1,4 +1,4 @@
-package com.code9.usermicroservice.security.jwt.service;
+package com.code9.usermicroservice.jwt.service;
 
 import com.code9.usermicroservice.user.service.UserService;
 import lombok.AllArgsConstructor;

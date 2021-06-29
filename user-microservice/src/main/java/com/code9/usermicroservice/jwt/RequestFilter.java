@@ -1,6 +1,6 @@
-package com.code9.usermicroservice.security.jwt;
+package com.code9.usermicroservice.jwt;
 
-import com.code9.usermicroservice.security.jwt.service.UserDetailsServiceImpl;
+import com.code9.usermicroservice.jwt.service.UserDetailsServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

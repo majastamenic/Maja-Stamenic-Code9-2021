@@ -1,4 +1,4 @@
-package com.code9.usermicroservice.security.jwt;
+package com.code9.usermicroservice.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

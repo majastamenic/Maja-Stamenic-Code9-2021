@@ -4,7 +4,7 @@
         xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-    <changeSet author="Maja Stamenic" id="createTableReservation">
+    <changeSet author="Maja Stamenic" id="createReservationTable">
         <createTable tableName="reservation_db">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true"/>
@@ -16,9 +16,6 @@
                 <constraints nullable="false"/>
             </column>
             <column name="tennis_court_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="timeslot_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
         </createTable>

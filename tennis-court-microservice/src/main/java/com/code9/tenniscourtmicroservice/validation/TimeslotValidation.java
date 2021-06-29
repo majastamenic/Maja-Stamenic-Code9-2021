@@ -83,7 +83,7 @@ public class TimeslotValidation {
         long minutesDif = TimeUnit.MILLISECONDS.toMinutes(timeDif) % 60;
         long hoursDif = TimeUnit.MILLISECONDS.toHours(timeDif) % 24;
 
-        if (minutesDif < 30 || hoursDif > 2)
+        if ((minutesDif<30 && hoursDif == 0) || (hoursDif>2))
             throw new BadRequestException("The term should last between 30 minutes and 2 hours.");
     }
 

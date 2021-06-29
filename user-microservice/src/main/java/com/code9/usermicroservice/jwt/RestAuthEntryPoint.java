@@ -1,4 +1,4 @@
-package com.code9.usermicroservice.security.jwt;
+package com.code9.usermicroservice.jwt;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

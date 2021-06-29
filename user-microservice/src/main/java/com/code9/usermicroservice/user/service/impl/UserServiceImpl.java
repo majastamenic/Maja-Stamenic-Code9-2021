@@ -80,6 +80,14 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Override
+    public User findById(Long id) {
+        User user = userRepository.findUserById(id);
+        if(user == null)
+            throw new NotFoundException("There is no user with id: " + id);
+        return user;
+    }
+
 //    @Override
 //    public String login(String username, String password) {
 //        User user = userRepository.findUserByUsername(username);

@@ -31,24 +31,17 @@ public class TennisCourtController {
         return new ResponseEntity(tennisCourtDtos, HttpStatus.OK);
     }
 
-    @PostMapping("/{email}")
+    @PostMapping
     @ApiOperation(value = "Create tennis court.", notes = "", response = TennisCourtDto.class)
-    public ResponseEntity<TennisCourtDto> create(@RequestBody TennisCourtDto tennisCourtDto, @PathVariable String email) {
-        userClient.checkIsAdmin(email);
+    public ResponseEntity<TennisCourtDto> create(@RequestBody TennisCourtDto tennisCourtDto) {
+        //userClient.checkIsAdmin(email);
         return new ResponseEntity(tennisCourtService.create(TennisCourtMapper.mapTennisCourtDtoToTennisCourt(tennisCourtDto)), HttpStatus.OK);
     }
 
-    @PutMapping("/{email}")
-    @ApiOperation(value = "Update tennis court.", notes = "", response = TennisCourtDto.class)
-    public ResponseEntity<TennisCourtDto> update(@RequestBody TennisCourtDto tennisCourtDto, @PathVariable String email) {
-        userClient.checkIsAdmin(email);
-        return new ResponseEntity(tennisCourtService.update(TennisCourtMapper.mapTennisCourtDtoToTennisCourt(tennisCourtDto)), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}/{email}")
+    @DeleteMapping("/{id}")
     @ApiOperation(value = "Delete tennis court.", notes = "", response = TennisCourtDto.class)
-    public ResponseEntity delete(@PathVariable Long id, @PathVariable String email) {
-        userClient.checkIsAdmin(email);
+    public ResponseEntity delete(@PathVariable Long id) {
+        //userClient.checkIsAdmin(email);
         return new ResponseEntity(tennisCourtService.delete(id), HttpStatus.OK);
     }
 }

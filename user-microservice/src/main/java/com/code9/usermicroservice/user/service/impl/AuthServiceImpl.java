@@ -1,6 +1,6 @@
 package com.code9.usermicroservice.user.service.impl;
 
-import com.code9.usermicroservice.security.jwt.JwtUtil;
+import com.code9.usermicroservice.jwt.JwtUtil;
 import com.code9.usermicroservice.user.domain.User;
 import com.code9.usermicroservice.user.service.AuthService;
 import com.code9.usermicroservice.user.service.UserService;

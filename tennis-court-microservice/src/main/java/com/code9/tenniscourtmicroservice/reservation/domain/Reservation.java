@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "reservation")
+@Table(name = "reservation_db")
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,4 +1,4 @@
-package com.code9.usermicroservice.security.jwt;
+package com.code9.usermicroservice.jwt;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,10 +11,6 @@ public class TokenBasedAuthentication extends AbstractAuthenticationToken {
     public TokenBasedAuthentication(UserDetails principle) {
         super(principle.getAuthorities());
         this.principle = principle;
-    }
-
-    public String getToken() {
-        return token;
     }
 
     public void setToken(String token) {

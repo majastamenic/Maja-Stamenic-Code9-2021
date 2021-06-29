@@ -4,6 +4,8 @@ import com.code9.usermicroservice.user.controller.dto.UserDto;
 import com.code9.usermicroservice.user.controller.mapping.UserMapper;
 import com.code9.usermicroservice.user.domain.User;
 import com.code9.usermicroservice.user.service.UserService;
+import feign.Param;
+import feign.RequestLine;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -28,6 +30,12 @@ public class UserController {
         return new ResponseEntity(userService.getAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    @ApiOperation(value = "Get user by id", notes = "", response = User.class)
+    ResponseEntity getUser(@PathVariable Long id){
+        return new ResponseEntity(userService.findById(id), HttpStatus.OK);
+    }
+
     @PostMapping
     @ApiOperation(value = "Create tennis player", notes = "", response = User.class)
     public ResponseEntity createTennisPlayer(@Valid @RequestBody UserDto userDto) {
@@ -35,16 +43,16 @@ public class UserController {
                 userService.createTennisPlayer(UserMapper.mapUserDtoToUser(userDto)), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping
     @ApiOperation(value = "Update tennis player", notes = "", response = User.class)
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity updateTennisPlayer(@RequestBody UserDto userDto) {
         return new ResponseEntity(
                 userService.updateTennisPlayer(UserMapper.mapUserDtoToUser(userDto)), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
+    //@PreAuthorize("hasRole('ADMIN')")
     @ApiOperation(value = "Delete tennis player", notes = "Delete tennis plyer by id", response = User.class)
     public ResponseEntity deleteTennisPlayer(@PathVariable Long id) {
         return new ResponseEntity(userService.deleteTennisPlayer(id), HttpStatus.OK);

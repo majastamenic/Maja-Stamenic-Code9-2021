@@ -13,6 +13,7 @@ public class TennisCourtMapper {
 
     public static TennisCourtDto mapTennisCourtToTennisCourtDto(TennisCourt tennisCourt){
         TennisCourtDto tennisCourtDto = new TennisCourtDto();
+        tennisCourtDto.setId(tennisCourt.getId());
         tennisCourtDto.setName(tennisCourt.getName());
         return tennisCourtDto;
     }

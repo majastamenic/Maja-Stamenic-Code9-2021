@@ -7,9 +7,7 @@ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
     <include file="createUserTable.xml" relativeToChangelogFile="true"/>
     <include file="createRoleTable.xml" relativeToChangelogFile="true"/>
     <include file="createUserRoleTable.xml" relativeToChangelogFile="true"/>
-    <include file="createPermissionTable.xml" relativeToChangelogFile="true"/>
 
     <include file="insertUser.xml" relativeToChangelogFile="true"/>
     <include file="insertRole.xml" relativeToChangelogFile="true"/>
-    <include file="insertPermission.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

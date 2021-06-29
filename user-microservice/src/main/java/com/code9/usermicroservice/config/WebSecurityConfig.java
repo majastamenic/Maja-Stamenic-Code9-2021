@@ -1,8 +1,8 @@
-package com.code9.usermicroservice.security.config;
+package com.code9.usermicroservice.config;
 
-import com.code9.usermicroservice.security.jwt.RequestFilter;
-import com.code9.usermicroservice.security.jwt.RestAuthEntryPoint;
-import com.code9.usermicroservice.security.jwt.service.UserDetailsServiceImpl;
+import com.code9.usermicroservice.jwt.RequestFilter;
+import com.code9.usermicroservice.jwt.RestAuthEntryPoint;
+import com.code9.usermicroservice.jwt.service.UserDetailsServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,6 +40,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/login").permitAll()
+                .antMatchers("/swagger-ui.html/**").permitAll()
+                .antMatchers("/configuration/**").permitAll()
+                .antMatchers("/swagger-resources/**").permitAll()
+                .antMatchers("/v2/api-docs").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(authEntryPoint)
@@ -53,11 +57,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web
                 .ignoring()
                 .antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "/favicon.ico", "/**/*.html",
-                        "/**/*.css", "/**/*.js", "/api", "/swagger-resources/**","/swagger-ui.html", "/v2/api-docs", "/api/swagger-ui.html");
+                        "/**/*.css", "/**/*.js", "/api/**");
         web
                 .ignoring()
                 .antMatchers(HttpMethod.POST,
                         "/api/login", "/api");
+
+        web.ignoring().antMatchers("/v2/api-docs",
+                "/configuration/ui",
+                "/swagger-resources/**",
+                "/configuration/security",
+                "/swagger-ui.html",
+                "/webjars/**");
     }
 
     @Override

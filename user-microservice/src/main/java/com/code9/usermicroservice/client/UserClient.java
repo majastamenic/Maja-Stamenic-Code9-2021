@@ -6,9 +6,9 @@ import org.springframework.http.ResponseEntity;
 
 public interface UserClient {
 
-    @RequestLine("GET /{id}")
+    @RequestLine("GET /api/{id}")
     ResponseEntity getUser(@Param Long id);
 
-    @RequestLine("GET /isAdmin/{email}")
+    @RequestLine("GET /api/isAdmin/{email}")
     ResponseEntity checkIsAdmin(@Param String email);
 }

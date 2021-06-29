@@ -35,7 +35,7 @@ public class ReservationServiceImpl implements ReservationService {
 
         checkTimeslots(reservation);
         reservation.setTennisCourt(tennisCourtService.findByName(reservation.getTennisCourt().getName()));
-        reservation.getTimeslots().forEach(timeslot -> timeslotService.create(timeslot));
+        reservation.getTimeslots().stream().map(timeslot -> timeslotService.create(timeslot));
 
         if (reservation.getTimeslots().size() > 5)
             reservation.setPaid(Boolean.FALSE);
@@ -102,10 +102,10 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     private void publishMessage(Reservation reservation) {
-        UserDto firstUser = (UserDto) userClient.getUser(reservation.getFirstUserId()).getBody();
-        UserDto secondUser = (UserDto) userClient.getUser(reservation.getSecondUserId()).getBody();
-        NewReservationMessage newReservationMessage = MessageFactory.createNewReservationMessage(reservation, firstUser.getEmail(), secondUser.getEmail());
-        messageService.sendMessageToNewReservationTopic(newReservationMessage);
+//        UserDto firstUser = (UserDto) userClient.getUser(reservation.getFirstUserId()).getBody();
+//        UserDto secondUser = (UserDto) userClient.getUser(reservation.getSecondUserId()).getBody();
+//        NewReservationMessage newReservationMessage = MessageFactory.createNewReservationMessage(reservation, firstUser.getEmail(), secondUser.getEmail());
+//        messageService.sendMessageToNewReservationTopic(newReservationMessage);
     }
 
 }
