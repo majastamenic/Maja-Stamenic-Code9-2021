@@ -43,7 +43,7 @@ public class TimeslotValidation {
         endCalendar.setTime(endDate);
 
         checkCalendarYears(startCalendar, endCalendar);
-        checkCalendarMounths(startCalendar, endCalendar);
+        checkCalendarMonths(startCalendar, endCalendar);
         checkCalendarDays(startCalendar, endCalendar);
 
         if (startCalendar.get(Calendar.DAY_OF_WEEK) != 1 && startCalendar.get(Calendar.DAY_OF_WEEK) != 7)
@@ -68,7 +68,7 @@ public class TimeslotValidation {
             throw new BadRequestException("Start date year and end date year must be the same.");
     }
 
-    private static void checkCalendarMounths(Calendar startCalendar, Calendar endCalendar) {
+    private static void checkCalendarMonths(Calendar startCalendar, Calendar endCalendar) {
         if (startCalendar.get(Calendar.MONTH) != endCalendar.get(Calendar.MONTH))
             throw new BadRequestException("Start date mounth and end date month must be the same.");
     }

@@ -7,4 +7,5 @@
     <include file="createTableTennisCourt.xml" relativeToChangelogFile="true"/>
     <include file="createTableTimeslot.xml" relativeToChangelogFile="true"/>
     <include file="createTableReservation.xml" relativeToChangelogFile="true"/>
+    <include file="updateTables.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

@@ -5,12 +5,18 @@
         xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-    <changeSet author="Maja Stamenic" id="updateTableUser">
-        <addColumn tableName="app_user">
+    <changeSet author="Maja Stamenic" id="updateTables">
+        <addColumn tableName="reservation_db">
             <column name="deleted" defaultValueBoolean="false" type="boolean">
             </column>
-            <column name="username" type="VARCHAR(128)">
-                <constraints nullable="true"/>
+            <column name="paid"  type="boolean"></column>
+        </addColumn>
+        <addColumn tableName="timeslot">
+            <column name="deleted" defaultValueBoolean="false" type="boolean">
+            </column>
+        </addColumn>
+        <addColumn tableName="tennis_court">
+            <column name="deleted" defaultValueBoolean="false" type="boolean">
             </column>
         </addColumn>
     </changeSet>

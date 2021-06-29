@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -34,20 +35,18 @@ public class UserController {
                 userService.createTennisPlayer(UserMapper.mapUserDtoToUser(userDto)), HttpStatus.OK);
     }
 
-    //    @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("/{email}")
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping
     @ApiOperation(value = "Update tennis player", notes = "", response = User.class)
-    public ResponseEntity updateTennisPlayer(@RequestBody UserDto userDto, @PathVariable String email) {
-        userService.checkAdmin(email);
+    public ResponseEntity updateTennisPlayer(@RequestBody UserDto userDto) {
         return new ResponseEntity(
                 userService.updateTennisPlayer(UserMapper.mapUserDtoToUser(userDto)), HttpStatus.OK);
     }
 
-    //    @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/{id}/{email}")
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/{id}")
     @ApiOperation(value = "Delete tennis player", notes = "Delete tennis plyer by id", response = User.class)
-    public ResponseEntity deleteTennisPlayer(@PathVariable Long id, @PathVariable String email) {
-        userService.checkAdmin(email);
+    public ResponseEntity deleteTennisPlayer(@PathVariable Long id) {
         return new ResponseEntity(userService.deleteTennisPlayer(id), HttpStatus.OK);
     }
 
@@ -57,9 +56,4 @@ public class UserController {
         userService.checkAdmin(email);
         return new ResponseEntity(HttpStatus.OK);
     }
-
-//    @PostMapping("/login")
-//    public ResponseEntity login(@RequestBody LoginDto loginDto){
-//        return new ResponseEntity(userService.login(loginDto.getUsername(), loginDto.getPassword()), HttpStatus.OK);
-//    }
 }

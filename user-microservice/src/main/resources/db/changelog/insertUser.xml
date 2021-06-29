@@ -5,13 +5,15 @@
         xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-    <changeSet author="Maja Stamenic" id="insert-admin">
+    <changeSet author="Maja Stamenic" id="insertUser">
         <insert tableName="app_user">
-            <column name="email" value="code9@mailinator.com"/>
+            <column name="email" value="admin@mailinator.com"/>
             <column name="first_name" value="Admin"/>
             <column name="last_name" value="Adminic"/>
             <column name="date_of_birth" value="1999-09-09"/>
-            <column name="password" value="Code9***"/>
+            <column name="username" value="code9"/>
+            <!-- Passoword Code9*** -->
+            <column name="password" value="$2a$07$vcWVORygXbaZZhMeYr1e7e4DwfpoyN1j5OIhn892C0HUi5l6RJahW"/>
         </insert>
         <insert tableName="app_user_role">
             <column name="user_id" value="1"/>

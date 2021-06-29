@@ -4,13 +4,12 @@ xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <include file="createTableUser.xml" relativeToChangelogFile="true"/>
-    <include file="createTableRoles.xml" relativeToChangelogFile="true"/>
-    <include file="createTableUsersRoles.xml" relativeToChangelogFile="true"/>
+    <include file="createUserTable.xml" relativeToChangelogFile="true"/>
+    <include file="createRoleTable.xml" relativeToChangelogFile="true"/>
+    <include file="createUserRoleTable.xml" relativeToChangelogFile="true"/>
+    <include file="createPermissionTable.xml" relativeToChangelogFile="true"/>
 
-    <include file="updateTableUser.xml" relativeToChangelogFile="true"/>
-
-    <include file="insertRoles.xml" relativeToChangelogFile="true"/>
-    <include file="insertAdmin.xml" relativeToChangelogFile="true"/>
-    <include file="insertAdmins.xml" relativeToChangelogFile="true"/>
+    <include file="insertUser.xml" relativeToChangelogFile="true"/>
+    <include file="insertRole.xml" relativeToChangelogFile="true"/>
+    <include file="insertPermission.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
