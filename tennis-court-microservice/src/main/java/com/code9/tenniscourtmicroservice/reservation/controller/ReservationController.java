@@ -5,6 +5,7 @@ import com.code9.tenniscourtmicroservice.reservation.controller.dto.ReservationD
 import com.code9.tenniscourtmicroservice.reservation.controller.mapping.ReservationMapper;
 import com.code9.tenniscourtmicroservice.reservation.domain.Reservation;
 import com.code9.tenniscourtmicroservice.reservation.service.ReservationService;
+import com.code9.usermicroservice.client.UserClient;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class ReservationController {
 
     private final ReservationService reservationService;
+    private final UserClient userClient;
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Get reservation by id.", notes = "", response = Reservation.class)
@@ -40,14 +42,16 @@ public class ReservationController {
 
     @PutMapping
     @ApiOperation(value = "Update reservation.", notes = "", response = Reservation.class)
-    public ResponseEntity update(@RequestBody ReservationDto reservationDto) {
+    public ResponseEntity update(@RequestBody ReservationDto reservationDto, @RequestHeader("admin-username") String adminUsername) {
+        userClient.checkIsAdmin(adminUsername);
         return new ResponseEntity(
                 reservationService.update(ReservationMapper.mapReservationDtoToReservation(reservationDto)), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "Delete reservation by id.", notes = "", response = Reservation.class)
-    public ResponseEntity delete(@PathVariable Long id) {
+    public ResponseEntity delete(@PathVariable Long id, @RequestHeader("admin-username") String adminUsername) {
+        userClient.checkIsAdmin(adminUsername);
         return new ResponseEntity(reservationService.delete(id), HttpStatus.OK);
     }
 

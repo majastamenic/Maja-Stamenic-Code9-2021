@@ -44,6 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/configuration/**").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()
                 .antMatchers("/v2/api-docs").permitAll()
+                .antMatchers("/api/isAdmin").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(authEntryPoint)
@@ -57,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web
                 .ignoring()
                 .antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "/favicon.ico", "/**/*.html",
-                        "/**/*.css", "/**/*.js", "/api/**");
+                        "/**/*.css", "/**/*.js", "/api/**", "/api/isAdmin");
         web
                 .ignoring()
                 .antMatchers(HttpMethod.POST,

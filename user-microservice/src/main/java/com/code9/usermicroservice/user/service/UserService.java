@@ -15,7 +15,7 @@ public interface UserService {
 
     User updateTennisPlayer(User user);
 
-    void checkAdmin(String email);
+    void checkAdmin(String adminUsername);
 
     void checkTennisPlayer(String email);
 

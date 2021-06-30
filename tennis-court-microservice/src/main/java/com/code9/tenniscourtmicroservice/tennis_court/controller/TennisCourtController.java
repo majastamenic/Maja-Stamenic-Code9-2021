@@ -33,15 +33,15 @@ public class TennisCourtController {
 
     @PostMapping
     @ApiOperation(value = "Create tennis court.", notes = "", response = TennisCourtDto.class)
-    public ResponseEntity<TennisCourtDto> create(@RequestBody TennisCourtDto tennisCourtDto) {
-        //userClient.checkIsAdmin(email);
+    public ResponseEntity<TennisCourtDto> create(@RequestBody TennisCourtDto tennisCourtDto, @RequestHeader("admin-username") String adminUsername) {
+        userClient.checkIsAdmin(adminUsername);
         return new ResponseEntity(tennisCourtService.create(TennisCourtMapper.mapTennisCourtDtoToTennisCourt(tennisCourtDto)), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "Delete tennis court.", notes = "", response = TennisCourtDto.class)
-    public ResponseEntity delete(@PathVariable Long id) {
-        //userClient.checkIsAdmin(email);
+    public ResponseEntity delete(@PathVariable Long id, @RequestHeader("admin-username") String adminUsername) {
+        userClient.checkIsAdmin(adminUsername);
         return new ResponseEntity(tennisCourtService.delete(id), HttpStatus.OK);
     }
 }

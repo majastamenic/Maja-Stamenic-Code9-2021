@@ -52,8 +52,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(dbUser);
     }
 
-    public void checkAdmin(String email) {
-        User user = findUserByEmail(email);
+    public void checkAdmin(String adminUsername) {
+        User user = findByUsername(adminUsername);
         Role role = roleService.findByName(admin);
         if (!(user.getRoles().contains(role)))
             throw new UnauthorizedException("Access denied due to invalid role.");

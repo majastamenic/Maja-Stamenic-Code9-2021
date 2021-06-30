@@ -45,8 +45,9 @@ public class UserController {
 
     @PutMapping
     @ApiOperation(value = "Update tennis player", notes = "", response = User.class)
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity updateTennisPlayer(@RequestBody UserDto userDto) {
+    //@PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity updateTennisPlayer(@RequestBody UserDto userDto, @RequestHeader("admin-username") String adminUsername) {
+        userService.checkAdmin(adminUsername);
         return new ResponseEntity(
                 userService.updateTennisPlayer(UserMapper.mapUserDtoToUser(userDto)), HttpStatus.OK);
     }
@@ -54,14 +55,15 @@ public class UserController {
     @DeleteMapping("/{id}")
     //@PreAuthorize("hasRole('ADMIN')")
     @ApiOperation(value = "Delete tennis player", notes = "Delete tennis plyer by id", response = User.class)
-    public ResponseEntity deleteTennisPlayer(@PathVariable Long id) {
+    public ResponseEntity deleteTennisPlayer(@PathVariable Long id, @RequestHeader("admin-username") String adminUsername) {
+        userService.checkAdmin(adminUsername);
         return new ResponseEntity(userService.deleteTennisPlayer(id), HttpStatus.OK);
     }
 
-    @GetMapping("/isAdmin/{email}")
+    @GetMapping("/isAdmin/{username}")
     @ApiOperation(value = "Chech is user admin", notes = "", response = User.class)
-    public ResponseEntity checkIsAdmin(@PathVariable String email) {
-        userService.checkAdmin(email);
+    public ResponseEntity checkIsAdmin(@PathVariable String username) {
+        userService.checkAdmin(username);
         return new ResponseEntity(HttpStatus.OK);
     }
 }
