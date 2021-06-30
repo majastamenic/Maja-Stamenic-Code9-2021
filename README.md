@@ -12,7 +12,7 @@ Password: mimilola
 
 ### Microservices:
 | Name | Port | About | Swagger
-| ------ | ------ | ------ |
+| ------ | ------ | ------ | ------ |
 | User-microservice | 9090 | Admin and tennis player | http://localhost:9090/swagger-ui.html
 | Tennis-court-microservice | 9099 | Tennis court reservation | http://localhost:9099/swagger-ui.html
 | Pay-microservice | 9990 | Payment | http://localhost:9990/swagger-ui.html
