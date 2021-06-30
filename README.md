@@ -8,7 +8,7 @@
 ##Database:
 
 Username: root
-Password: root
+Password: mimilola
 
 ### Microservices:
 | Name | Port | About | Swagger

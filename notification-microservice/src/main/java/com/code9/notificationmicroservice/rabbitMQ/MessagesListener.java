@@ -14,7 +14,7 @@ public class MessagesListener {
         this.reservationService = reservationService;
     }
 
-    @RabbitListener(queues = "user-update-queue")
+    @RabbitListener(queues = "new-reservation-queue")
     public void receiveUserMessage(String message) {
         NewReservationMessage newReservationMessage = null;
         try {
@@ -23,7 +23,7 @@ public class MessagesListener {
             e.printStackTrace();
             return;
         }
-        reservationService.save("New reservation for " + newReservationMessage.getFirstEmail() +
-                " and " + newReservationMessage.getSecondEmail() + " on tennis court " + newReservationMessage.getTennisCourtName());
+        reservationService.save("New reservation for users: " + newReservationMessage.getFirstUserId() +
+                " and " + newReservationMessage.getSecondUserId() + " on tennis court: " + newReservationMessage.getTennisCourtName());
     }
 }

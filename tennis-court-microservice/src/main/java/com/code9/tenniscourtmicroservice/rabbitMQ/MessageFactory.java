@@ -7,11 +7,11 @@ import java.time.OffsetDateTime;
 
 @UtilityClass
 public class MessageFactory {
-    public static NewReservationMessage createNewReservationMessage(Reservation reservation, String firstEmail, String secondEmail) {
+    public static NewReservationMessage createNewReservationMessage(Reservation reservation) {
         return NewReservationMessage
                 .builder()
-                .firstEmail(firstEmail)
-                .secondEmail(secondEmail)
+                .firstUserId(reservation.getFirstUserId())
+                .secondUserId(reservation.getSecondUserId())
                 .tennisCourtName(reservation.getTennisCourt().getName())
                 .version(1)
                 .sendingTime(OffsetDateTime.now().toString())

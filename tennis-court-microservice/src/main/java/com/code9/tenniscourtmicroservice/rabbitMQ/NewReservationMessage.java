@@ -9,11 +9,11 @@ import lombok.experimental.SuperBuilder;
 @Value
 @SuperBuilder
 public class NewReservationMessage extends BaseMessage{
-    @JsonProperty("first_email")
-    String firstEmail;
+    @JsonProperty("first_user_id")
+    Long firstUserId;
 
-    @JsonProperty("second_email")
-    String secondEmail;
+    @JsonProperty("second_user_id")
+    Long secondUserId;
 
     @JsonProperty("tennis_court_name")
     String tennisCourtName;
